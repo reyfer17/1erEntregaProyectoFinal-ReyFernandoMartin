@@ -37,8 +37,7 @@ class Producto {
         if(entrada != "s" && entrada != "n"){
             alert("ERROR: entrada no válida \n ingrese -S- para modificar su compra \n Ingrese -N- para obtener su ticket ")
         } else if(entrada=="n"){
-            alert("¡Gracias por su compra! Retire el ticket por ventanilla") 
-            
+            alert("¡Gracias por su compra! Retire el ticket por ventanilla\n(pulse aceptar para obtenerlo)")       
         } else {
         this.eliminarYReemplazarProducto()}
     }   
@@ -71,7 +70,6 @@ class Producto {
         alert("ERROR: Ingrese un numero entre 1 y 3")}
         else {banderaReemplazo = 1}
     }
-
 }
 //creacion de objetos
 const gaseosaGrande = new Producto ("Gaseosa grande",3, 500, "500ml",1)
@@ -101,9 +99,13 @@ function validarProducto(){if ((pedido[i] <1 || pedido[i]>6)||isNaN(pedido[i])){
 } else {productoPedido[i]=productos[pedido[i]]}
 }
 function testearCombo() { do {Combo(valorInicialI)
-    validarCombo = productoPedido[0].validacionCombo + productoPedido[1].validacionCombo + productoPedido[2].validacionCombo
+    validarCombo=0
+    productoPedido.forEach(producto =>{
+        validarCombo+=producto.validacionCombo
+    })
     if (validarCombo != 5){alert("ERROR: Recuerde que para crear su combo debe ingresar 2 gaseosas y 1 pochoclo")}
 }while(validarCombo!= 5)
+
 }
 
 
