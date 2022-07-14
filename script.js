@@ -18,19 +18,20 @@ class Producto {
     this.validacionCombo = validacionCombo
     }
     //creacion de metodos
-    crearCombo(producto1,producto2,producto3) {  
+    crearCombo(producto) {   
      do {modificarCompra = prompt("Su pedido consta de :\n" +
-     producto1.nombre + "\n"+
-     producto2.nombre + "\n"+
-     producto3.nombre + "\n"+
-     "El total parcial es :" + this.totalizar(producto1, producto2, producto3) +
-     "¿Desea reemplazar algún elemento del combo?(S/N)").toLowerCase () 
+     producto[0].nombre + "\n"+
+     producto[1].nombre + "\n"+
+     producto[2].nombre + "\n"+
+     "El total parcial es :" + this.totalizar(producto) +
+     "\n¿Desea reemplazar algún elemento del combo?(S/N)").toLowerCase () 
      this.validarCompra(modificarCompra)
      }while (modificarCompra != "s" && modificarCompra != "n" )
     }
 
-    totalizar(producto1,producto2,producto3){
-        return precioCombo =producto1.precio+producto2.precio+producto3.precio
+       totalizar(producto){
+        let precios = producto.map(producto => producto.precio)
+        return precioCombo = precios.reduce ((prev,act) => prev+act , 0)
     }
 
     validarCompra(entrada){
@@ -62,7 +63,7 @@ class Producto {
      productoPedido.splice(productoAEliminar-1,1)
      valorInicialI =2
      testearCombo()
-     producto1.crearCombo(productoPedido[0],productoPedido[1],productoPedido[2])
+     producto1.crearCombo(productoPedido)
     }
     validarReemplazo(){
         if (productoAEliminar!=1 && productoAEliminar!=2 && productoAEliminar !=3){
@@ -87,9 +88,9 @@ productos[4].codigo +" "+ productos[4].nombre + " $"+productos[4].precio + "\n" 
 productos[5].codigo +" "+ productos[5].nombre + " $"+productos[5].precio + "\n" +
 productos[6].codigo +" "+ productos[6].nombre + " $"+productos[6].precio 
 
-
 function Combo(valorInicialI){    for(i=valorInicialI;i<3;i++){
-        do {pedido[i] = parseInt(prompt("CREE SU PROPIO COMBO\n Seleccione el producto a agregar \n(Para crear un combo seleccione un pochoclo y 2 gaseosas)\n"+lista))
+        do {pedido[i] = parseInt(prompt("CREE SU PROPIO COMBO\n Seleccione el producto a agregar \n(Para crear un combo seleccione 1 pochoclo y 2 gaseosas)\n"
+        +lista))
         validarProducto()
         } while((pedido[i] <1 || pedido[i]>6)||isNaN(pedido[i]))
     }
@@ -103,11 +104,9 @@ function testearCombo() { do {Combo(valorInicialI)
     productoPedido.forEach(producto =>{
         validarCombo+=producto.validacionCombo
     })
-    if (validarCombo != 5){alert("ERROR: Recuerde que para crear su combo debe ingresar 2 gaseosas y 1 pochoclo")}
+    if (validarCombo != 5){alert("ERROR: Recuerde que para crear su combo debe ingresar 2 gaseosas y 1 pochoclo \n POR FAVOR INGRESE NUEVAMENTE LO SOLICITADO")}
 }while(validarCombo!= 5)
-
 }
-
 
 testearCombo()
 let producto1 = new Producto
@@ -115,5 +114,5 @@ let producto2 = new Producto
 let producto3 = new Producto 
 
 //prueba de metodos
-producto1.crearCombo(productoPedido[0],productoPedido[1],productoPedido[2])
+producto1.crearCombo(productoPedido)
 producto1.emitirTicket(productoPedido[0],productoPedido[1],productoPedido[2])
